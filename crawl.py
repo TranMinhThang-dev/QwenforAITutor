@@ -143,4 +143,4 @@ if __name__ == "__main__":
             # print("Button click successfull!!")    
     driver.quit()
     with open("vietjack_data.json",'w') as f:
-        json.dump(D,f,indent=4)
+        json.dump(D,f,indent=4, ensure_ascii=False)
