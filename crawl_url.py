@@ -17,7 +17,8 @@ def get_href_from_div(url):
         # Extract all href attributes from a tags within this element
         hrefs = []
         if scroll_div:
-            for a_tag in tqdm(scroll_div.find_all('a'),desc="DIV:", ncols=75):
+            # for a_tag in tqdm(scroll_div.find_all('a'),desc="DIV:", ncols=75):
+            for a_tag in scroll_div.find_all('a'):
                 href = a_tag.get('href')
                 if href:
                     hrefs.append(href)
@@ -92,6 +93,64 @@ urls = [
         "https://khoahoc.vietjack.com/thi-online/toan-10-bai-1-menh-de-co-dap-an/24310"
         
         # Lop 9
+        "https://khoahoc.vietjack.com/thi-online/bo-5-de-thi-giua-ki-2-toan-9-ket-noi-tri-thuc-co-dap-an/163254",# de tong hop
+        "https://khoahoc.vietjack.com/thi-online/trac-nghiem-chuyen-de-toan-9-chuyen-de-5-cac-bai-toan-thuc-te-giai-bang-cach-lap-phuong-trinh-va-he/103993", # de tong hop 
+        "https://khoahoc.vietjack.com/thi-online/15-cau-trac-nghiem-toan-9-ket-noi-tri-thuc-bai-1-khai-niem-phuong-trinh-va-he-hai-phuong-trinh-bac-n/146600", # hoc truc tuyen kntt
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-9-kntt-bai-1-khai-niem-phuong-trinh-va-he-phuong-trinh-bac-nhat-hai-an-co-dap-an/134219",
+        "https://khoahoc.vietjack.com/thi-online/15-cau-trac-nghiem-toan-9-canh-dieu-bai-1-phuong-trinh-quy-ve-phuong-trinh-bac-nhat-mot-an-co-dap-an/146695",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-9-cd-bai-1-phuong-trinh-quy-ve-phuong-trinh-bac-nhat-mot-an-co-dap-an/134939",
+        "https://khoahoc.vietjack.com/thi-online/15-cau-trac-nghiem-toan-9-chan-troi-sang-tao-bai-1-phuong-trinh-quy-ve-phuong-trinh-bac-nhat-mot-an/147022",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-9-ctst-bai-1-phuong-trinh-quy-ve-phuong-trinh-bac-nhat-mot-an-co-dap-an/134321",
+        "https://khoahoc.vietjack.com/thi-online/23-cau-trac-nghiem-toan-9-bai-1-can-thuc-bac-hai-co-dap-an/46276",
+        "https://khoahoc.vietjack.com/thi-online/giai-bai-tap-sgk-toan-9-tap-1-hay-nhat-bai-1-can-bac-hai/45401",
+        
+        # Lop 8
+        "https://khoahoc.vietjack.com/thi-online/cach-tim-mau-thuc-chung-cuc-hay-nhanh-nhat/49660",
+        "https://khoahoc.vietjack.com/thi-online/9-bai-tap-bai-toan-thuc-tie9n-lien-quan-den-phan-thuc-dai-so-co-loi-giai/133140",
+        "https://khoahoc.vietjack.com/thi-online/10-bai-tasp-bai-toan-thuc-tien-gan-voi-viec-van-dung-dinh-li-thales-co-loi-giai/153103", # de chung
+        "https://khoahoc.vietjack.com/thi-online/15-cau-trac-nghiem-toan-8-ket-noi-tri-thuc-bai-1-don-thuc-co-dap-an/126580",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-8-kntt-bai-1-don-thuc-co-dap-an/119327",
+        "https://khoahoc.vietjack.com/thi-online/15-cau-trac-nghiem-toan-8-canh-dieu-bai-1-don-thuc-nhieu-bien-da-thuc-nhieu-bien-co-dap-an/126640",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-8-canh-dieu-bai-1-don-thuc-nhieu-bien-da-thuc-nhieu-bien-co-dap-an/119372",
+        "https://khoahoc.vietjack.com/thi-online/15-cau-trac-nghiem-toan-8-chan-troi-sang-tao-bai-1-don-thuc-va-da-thuc-nhieu-bien-co-dap-an/126766",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-8-ctst-bai-1-don-thuc-va-da-thuc-nhieu-bien-co-dap-an/119352",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-nhan-don-thuc-voi-da-thuc-co-loi-giai-chi-tiet/47868",
+        "https://khoahoc.vietjack.com/thi-online/cac-dang-bai-tap-toan-8-chuong-2-da-giac-dien-tich-da-giac-co-dap-an/60298"
+        
+        # Lop 7
+        "https://khoahoc.vietjack.com/thi-online/bo-5-de-thi-giua-ki-2-toan-7-canh-dieu-cau-truc-moi-co-dap-an/163297",
+        "https://khoahoc.vietjack.com/thi-online/12-bai-tap-mot-so-bai-toan-thuc-te-lien-quan-dai-luong-ti-le-nghich-co-loi-giai/100960",
+        "https://khoahoc.vietjack.com/thi-online/de-kiem-tra-giua-hoc-ki-2-toan-lop-7-ctst-co-dap-an/115992", # de tong hop
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-toan-7-kntt-bai-1-tap-hop-cac-so-huu-ti-co-dap-an/78936",
+        "https://khoahoc.vietjack.com/thi-online/giai-vbt-toan-7-cd-bai-1-tap-hop-cac-so-huu-ti-co-dap-an/107748",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-tap-hop-q-cac-so-huu-ti-co-dap-an-5/77357",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-tap-hop-q-cac-so-huu-ti-co-dap-an/50785",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-on-tap-toan-7-chuong-1-so-huu-ti-so-thuc-co-dap-an/60971",
+        
+        # Lop 6
+        "https://khoahoc.vietjack.com/thi-online/de-kiem-tra-giua-ki-2-toan-6-co-dap-an-moi-nhat/89233",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-chuyen-de-toan-6-dang-2-cac-phep-toan-ve-cong-tru-nhan-chia-phan-so-co-dap-an/107268",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-lop-6-kntt-bai-1-tap-hop-co-dap-an/114605",
+        "https://khoahoc.vietjack.com/thi-online/5-cau-trac-nghiem-toan-6-canh-dieu-bai-1-tap-hop-co-dap-an-nhan-biet/72294",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-lop-6-kntt-bai-1-tap-hop-co-dap-an/114605",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-canh-dieu-chuong-5-phan-so-va-so-thap-phan-co-dap-an/109396",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-canh-dieu-chuong-6-hinh-hoc-phang-co-dap-an/109349",
+        "https://khoahoc.vietjack.com/thi-online/giai-vbt-toan-6-chuong-3-hinh-hoc-truc-quan-bo-canh-dieu/109259",
+        "https://khoahoc.vietjack.com/thi-online/giai-vbt-toan-6-chuong-2-so-nguyen-bo-canh-dieu/109224",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-canh-dieu-chuong-4-mot-so-yeu-to-thong-ke-va-xac-suat-co-dap-an/109186"
+        "https://khoahoc.vietjack.com/thi-online/giai-vbt-toan-6-chuong-1-so-tu-nhien-bo-canh-dieu/109082",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-chuong-3-hinh-hoc-truc-quan-bo-canh-dieu/68924",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-chuong-2-so-nguyen-bo-canh-dieu/68906",
+        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-chuong-1-so-tu-nhien-bo-canh-dieu/68887",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-6-hinh-hoc-phang-bo-canh-dieu/68877",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-5-phan-so-va-so-thap-phan-bo-canh-dieu/68864",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-4-mot-so-yeu-to-thong-ke-va-xac-suat-bo-canh-dieu/68856",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-3-hinh-hoc-truc-quan-bo-canh-dieu/68847",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-2-so-nguyen-bo-canh-dieu/68840",
+        "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-1-so-tu-nhien-bo-canh-dieu/68826",
+        "https://khoahoc.vietjack.com/thi-online/10-cau-trac-nghiem-toan-6-chan-troi-sang-tao-bai-1-tap-hop-phan-tu-cua-tap-hop-co-dap-an/71259",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-tap-hop-phan-tu-cua-tap-hop-chon-loc-co-dap-an/47455",
+        "https://khoahoc.vietjack.com/thi-online/bai-11-dau-hieu-chia-het-cho-2-cho-5/16023"
         ]
 hrefs = []
 for url in urls:
