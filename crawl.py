@@ -14,6 +14,7 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run in headless mode
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
+import json
 
 global driver
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -110,9 +111,10 @@ def get_flashcards_selenium(url):
 
 # Usage example
 if __name__ == "__main__":
-    urls = ["https://khoahoc.vietjack.com/thi-online/de-thi-giua-ki-1-toan-12-canh-dieu-co-dap-an/146534"]
-
-
+    with open("urls.txt",'r') as f:
+        urls = f.readlines()
+        
+    D = []
     for url in urls:
         """Extract flashcard content using Selenium with XPath"""
         driver.get(url)
@@ -120,31 +122,36 @@ if __name__ == "__main__":
         # Wait for page to fully load
         time.sleep(3)
         for i in range(5):
-            
+            quizz = {}
             front_cards, back_cards = get_flashcards_selenium(url)
             
             front_extracted_content = extract_flashcard_information(front_cards[0].replace('<div class="flashcard-content flashcard-front">','')[:-6])
             back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
             
             # Print the extracted content in a nice format
-            print("="*10,"FRONT CARD","="*10)
-            print("Question:")
-            print(front_extracted_content['question'])
-            print("\nOptions:", front_extracted_content['options'])
-            print("\nImage URL:")
-            print(front_extracted_content['image_url'])
+            # print("="*10,"FRONT CARD","="*10)
+            # print("Question:")
+            # print(front_extracted_content['question'])
+            # print("\nOptions:", front_extracted_content['options'])
+            # print("\nImage URL:")
+            # print(front_extracted_content['image_url'])
             
-            print("="*10,"BACK CARD","="*10)
-            print(back_extracted_content['question'])
+            # print("="*10,"BACK CARD","="*10)
+            # print(back_extracted_content['question'])
             
-            print(f"Found {len(front_cards)} front cards and {len(back_cards)} back cards")
-            
+            # print(f"Found {len(front_cards)} front cards and {len(back_cards)} back cards")
+            quizz["question"] = front_extracted_content['question']
+            quizz['options'] = front_extracted_content['options']
+            quizz["image"] = front_extracted_content['image_url']
+            quizz['answer'] = back_extracted_content['question']
+            D.append(quizz)
             button = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default > i.fas.fa-arrow-right"))
             )
             # Navigate up to the button from the icon
             button = button.find_element(By.XPATH, "..")
             button.click()
-            print("Button click successfull!!")    
-        driver.quit()
-            
+            # print("Button click successfull!!")    
+    driver.quit()
+    with open("data.json",'w') as f:
+        json.dump(D,f,indent=4)
