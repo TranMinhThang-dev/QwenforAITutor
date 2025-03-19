@@ -111,7 +111,7 @@ def get_flashcards_selenium(url):
 
 # Usage example
 if __name__ == "__main__":
-    with open("urls.txt",'r') as f:
+    with open("urls\cd_hoctructuyen_urls.txt",'r') as f:
         urls = f.readlines()
         
     D = []
@@ -128,6 +128,7 @@ if __name__ == "__main__":
             front_extracted_content = extract_flashcard_information(front_cards[0].replace('<div class="flashcard-content flashcard-front">','')[:-6])
             back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
             
+            quizz['url'] = url
             quizz["question"] = front_extracted_content['question']
             quizz['options'] = front_extracted_content['options']
             quizz["image"] = front_extracted_content['image_url']
