@@ -128,18 +128,6 @@ if __name__ == "__main__":
             front_extracted_content = extract_flashcard_information(front_cards[0].replace('<div class="flashcard-content flashcard-front">','')[:-6])
             back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
             
-            # Print the extracted content in a nice format
-            # print("="*10,"FRONT CARD","="*10)
-            # print("Question:")
-            # print(front_extracted_content['question'])
-            # print("\nOptions:", front_extracted_content['options'])
-            # print("\nImage URL:")
-            # print(front_extracted_content['image_url'])
-            
-            # print("="*10,"BACK CARD","="*10)
-            # print(back_extracted_content['question'])
-            
-            # print(f"Found {len(front_cards)} front cards and {len(back_cards)} back cards")
             quizz["question"] = front_extracted_content['question']
             quizz['options'] = front_extracted_content['options']
             quizz["image"] = front_extracted_content['image_url']
@@ -153,5 +141,5 @@ if __name__ == "__main__":
             button.click()
             # print("Button click successfull!!")    
     driver.quit()
-    with open("data.json",'w') as f:
+    with open("vietjack_data.json",'w') as f:
         json.dump(D,f,indent=4)
