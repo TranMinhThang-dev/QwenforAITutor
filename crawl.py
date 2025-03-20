@@ -111,7 +111,7 @@ def get_flashcards_selenium(url):
 
 # Usage example
 if __name__ == "__main__":
-    with open("urls\cd_hoctructuyen_urls.txt",'r') as f:
+    with open("urls.txt",'r') as f:
         urls = f.readlines()
         
     D = []
@@ -142,5 +142,5 @@ if __name__ == "__main__":
             button.click()
             # print("Button click successfull!!")    
     driver.quit()
-    with open("vietjack_data.json",'w') as f:
-        json.dump(D,f,indent=4)
+    with open("vietjack_data.json", 'w', encoding='utf-8') as f:
+        json.dump(D, f, indent=4, ensure_ascii=False)
