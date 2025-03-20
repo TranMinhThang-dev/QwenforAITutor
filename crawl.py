@@ -115,7 +115,7 @@ if __name__ == "__main__":
         urls = f.readlines()
         
     D = []
-    for url in urls:
+    for url in urls[:1]:
         """Extract flashcard content using Selenium with XPath"""
         driver.get(url)
         
@@ -143,4 +143,4 @@ if __name__ == "__main__":
             # print("Button click successfull!!")    
     driver.quit()
     with open("vietjack_data.json",'w') as f:
-        json.dump(D,f,indent=4, ensure_ascii=False)
+        json.dump(D,f,indent=4)

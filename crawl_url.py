@@ -47,8 +47,16 @@ def get_href_from_ul(url):
                     hrefs.append(href)
                     hrefs_from_div = get_href_from_div(href)
                     hrefs.extend(hrefs_from_div[1:])
-
-        print(len(set(hrefs)))
+        else:
+            # Find the specific div element with class "scroll-slider scroll-off"
+            scroll_div = soup.select_one('div.scroll-on')
+            
+            if scroll_div:
+                for a_tag in tqdm(scroll_div.find_all('a'),desc="DIV:", ncols=75):
+                    href = a_tag.get('href')
+                    if href:
+                        hrefs.append(href)
+            
         return hrefs
     else:
         print(f"UL: Request failed with status code: {response.status_code}")
@@ -132,7 +140,11 @@ urls = [
         "https://khoahoc.vietjack.com/thi-online/bai-tap-chuyen-de-toan-6-dang-2-cac-phep-toan-ve-cong-tru-nhan-chia-phan-so-co-dap-an/107268",
         "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-lop-6-kntt-bai-1-tap-hop-co-dap-an/114605",
         "https://khoahoc.vietjack.com/thi-online/5-cau-trac-nghiem-toan-6-canh-dieu-bai-1-tap-hop-co-dap-an-nhan-biet/72294",
-        "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-lop-6-kntt-bai-1-tap-hop-co-dap-an/114605",
+        "https://khoahoc.vietjack.com/thi-online/10-cau-trac-nghiem-toan-6-chan-troi-sang-tao-bai-1-tap-hop-phan-tu-cua-tap-hop-co-dap-an/71259",
+        "https://khoahoc.vietjack.com/thi-online/bai-tap-tap-hop-phan-tu-cua-tap-hop-chon-loc-co-dap-an/47455",
+        "https://khoahoc.vietjack.com/thi-online/bai-11-dau-hieu-chia-het-cho-2-cho-5/16023"
+        ]
+urls = [
         "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-canh-dieu-chuong-5-phan-so-va-so-thap-phan-co-dap-an/109396",
         "https://khoahoc.vietjack.com/thi-online/giai-sbt-toan-6-canh-dieu-chuong-6-hinh-hoc-phang-co-dap-an/109349",
         "https://khoahoc.vietjack.com/thi-online/giai-vbt-toan-6-chuong-3-hinh-hoc-truc-quan-bo-canh-dieu/109259",
@@ -148,14 +160,19 @@ urls = [
         "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-3-hinh-hoc-truc-quan-bo-canh-dieu/68847",
         "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-2-so-nguyen-bo-canh-dieu/68840",
         "https://khoahoc.vietjack.com/thi-online/giai-sgk-toan-6-chuong-1-so-tu-nhien-bo-canh-dieu/68826",
-        "https://khoahoc.vietjack.com/thi-online/10-cau-trac-nghiem-toan-6-chan-troi-sang-tao-bai-1-tap-hop-phan-tu-cua-tap-hop-co-dap-an/71259",
-        "https://khoahoc.vietjack.com/thi-online/bai-tap-tap-hop-phan-tu-cua-tap-hop-chon-loc-co-dap-an/47455",
-        "https://khoahoc.vietjack.com/thi-online/bai-11-dau-hieu-chia-het-cho-2-cho-5/16023"
-        ]
+]
 hrefs = []
-for url in urls:
-    hrefs.extend(get_href_from_ul(url))
-    
+print("number of url: ",len(urls))
+for idx,url in enumerate(urls):
+    print(f"URL: {idx}")
+    try:
+        hrefs.extend(get_href_from_ul(url))
+    except Exception as e:
+        print(e)
+        
 hrefs = list(set(hrefs))
 print("number of url: ",len(hrefs))
+with open("urls.txt",'a') as f:
+    for href in hrefs:
+        f.write(href+"\n")
 

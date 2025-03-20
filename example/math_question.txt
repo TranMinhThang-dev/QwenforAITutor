@@ -1,0 +1,21 @@
+
+Question:
+I. Nhận biết
+Cho đồ thị hàm số bậc ba f(x)=ax^3+bx^2+cx+d có bảng xét dấu như hình vẽ bên dưới.
+Hàm số đã cho đồng biến trên khoảng nào sau đây?
+A. (0;+∞).
+B. (−∞;−2).
+C. (−3;1).
+D. (−2;0).
+
+Options:
+A. $(0; + ∞ ).$
+B. $( - ∞ ; - 2).$
+C. $( - 3;1).$
+D. $( - 2;0).$
+
+Answer:
+Đáp án đúng là: D
+Dựa vào bảng xét dấu, ta có hàm số đồng biến trên khoảng (−2;0).
+
+Image URL: https://video.vietjack.com/upload2/quiz_source1/2024/10/blobid0-1728868566.png
