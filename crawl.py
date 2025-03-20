@@ -8,6 +8,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
+from tqdm import tqdm
+from loguru import logger
 
 # Setup Chrome driver
 chrome_options = Options()
@@ -115,32 +117,34 @@ if __name__ == "__main__":
         urls = f.readlines()
         
     D = []
-    for url in urls[:1]:
+    for url in tqdm(urls, desc="url",ncols=75):
         """Extract flashcard content using Selenium with XPath"""
         driver.get(url)
         
         # Wait for page to fully load
-        time.sleep(3)
+        time.sleep(2)
         for i in range(5):
-            quizz = {}
-            front_cards, back_cards = get_flashcards_selenium(url)
-            
-            front_extracted_content = extract_flashcard_information(front_cards[0].replace('<div class="flashcard-content flashcard-front">','')[:-6])
-            back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
-            
-            quizz['url'] = url
-            quizz["question"] = front_extracted_content['question']
-            quizz['options'] = front_extracted_content['options']
-            quizz["image"] = front_extracted_content['image_url']
-            quizz['answer'] = back_extracted_content['question']
-            D.append(quizz)
-            button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default > i.fas.fa-arrow-right"))
-            )
-            # Navigate up to the button from the icon
-            button = button.find_element(By.XPATH, "..")
-            button.click()
-            # print("Button click successfull!!")    
+            try:
+                quizz = {}
+                front_cards, back_cards = get_flashcards_selenium(url)
+                front_extracted_content = extract_flashcard_information(front_cards[0].replace('<div class="flashcard-content flashcard-front">','')[:-6])
+                back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
+                
+                quizz['url'] = url
+                quizz["question"] = front_extracted_content['question']
+                quizz['options'] = front_extracted_content['options']
+                quizz["image"] = front_extracted_content['image_url']
+                quizz['answer'] = back_extracted_content['question']
+                D.append(quizz)
+                button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default > i.fas.fa-arrow-right"))
+                )
+                # Navigate up to the button from the icon
+                button = button.find_element(By.XPATH, "..")
+                button.click()
+                # print("Button click successfull!!")    
+            except Exception as e:
+                logger.error(f"Error when handling url: {url} and flashcard {i}")
     driver.quit()
     with open("vietjack_data.json", 'w', encoding='utf-8') as f:
         json.dump(D, f, indent=4, ensure_ascii=False)
