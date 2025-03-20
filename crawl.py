@@ -117,6 +117,7 @@ if __name__ == "__main__":
         urls = f.readlines()
         
     D = []
+    idx = 0
     for url in tqdm(urls, desc="url",ncols=75):
         """Extract flashcard content using Selenium with XPath"""
         driver.get(url)
@@ -130,11 +131,13 @@ if __name__ == "__main__":
                 front_extracted_content = extract_flashcard_information(front_cards[0].replace('<div class="flashcard-content flashcard-front">','')[:-6])
                 back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
                 
+                quizz['id'] = idx
                 quizz['url'] = url
                 quizz["question"] = front_extracted_content['question']
                 quizz['options'] = front_extracted_content['options']
                 quizz["image"] = front_extracted_content['image_url']
                 quizz['answer'] = back_extracted_content['question']
+                idx += 1
                 D.append(quizz)
                 button = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn.btn-default > i.fas.fa-arrow-right"))
@@ -144,7 +147,7 @@ if __name__ == "__main__":
                 button.click()
                 # print("Button click successfull!!")    
             except Exception as e:
-                logger.error(f"Error when handling url: {url} and flashcard {i}")
+                print(f"\nError when handling url: {url} and flashcard {i}")
     driver.quit()
     with open("vietjack_data.json", 'w', encoding='utf-8') as f:
         json.dump(D, f, indent=4, ensure_ascii=False)
