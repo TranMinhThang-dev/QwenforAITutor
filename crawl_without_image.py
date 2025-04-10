@@ -139,11 +139,14 @@ if __name__ == "__main__":
     with open("urls.txt",'r') as f:
         urls = f.readlines()
         
-    idx = 0
-    for url in tqdm(urls[6:], desc="url",ncols=75):
+    idx = 1365
+    cnt = 800
+    for url in tqdm(urls[800:], desc="url",ncols=75):
         """Extract flashcard content using Selenium with XPath"""
         driver.get(url)
-        
+        cnt+=1
+        with open("count.txt",'a',encoding='utf-8') as f:
+            f.write(f"{cnt}\n")
         # Wait for page to fully load
         time.sleep(2)
         for i in range(5):
@@ -154,6 +157,8 @@ if __name__ == "__main__":
                 back_extracted_content = extract_flashcard_information(back_cards[0].replace('<div class="flashcard-content flashcard-back">','')[:-6])
                 
                 if front_extracted_content is None or back_extracted_content is None or front_extracted_content['question'] == "" or back_extracted_content['question'] == '':
+                    with open("error_url.txt",'a',encoding='utf-8') as f:
+                        f.write(f"{url}\n")
                     continue
                 
                 quizz['id'] = idx
@@ -171,11 +176,11 @@ if __name__ == "__main__":
                 button.click()
                 # print("Button click successfull!!") 
 
-                with open("vietjack_latex_data.json", 'a', encoding='utf-8') as f:
+                with open("vietjack_latex_data_2.json", 'a', encoding='utf-8') as f:
                     json.dump(quizz, f, indent=4, ensure_ascii=False)
                     f.write(",\n")
                     
-                with open("math.tex", 'a', encoding='utf-8') as f:
+                with open("math_2.tex", 'a', encoding='utf-8') as f:
                     f.write(f"========================================================================\n\n")
                     f.write(f"{url}\n\n")
                     f.write("\\textbf{{QUESTION}}\n\n")
